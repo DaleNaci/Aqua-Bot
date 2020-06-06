@@ -13,7 +13,11 @@ bot = commands.Bot(command_prefix = "!")
 
 bot.remove_command("help")
 
-server = MinecraftServer("x337.ddns.net:25661")
+with open("ip.txt", "r") as f:
+    lines = f.readlines()
+    ip = lines[0].strip()
+
+server = MinecraftServer(ip)
 
 
 @bot.event
