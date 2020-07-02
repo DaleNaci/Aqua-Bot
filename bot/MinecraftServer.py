@@ -21,16 +21,10 @@ class MinecraftServer:
         command = "mcstatus {} status".format(self.ip)
         output = str(subprocess.check_output(command, shell=True))
 
-        index = output.find("[")
-
-        if output[index-1] != " ":
-            output = output[:index] + output[index+1:]
-            index = output.find("[")
-
-        if index == -1:
+        if "No players online" in output:
             return []
 
-        lst_string = output[index+1:-4]
+        lst_string = output[output.index("players: ") + 15:]
         lst = lst_string.split(", ")
         players_online = [s.split(" ")[0][2:] for s in lst]
 
